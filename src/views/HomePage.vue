@@ -7,14 +7,19 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-input placeholder="Enter company name" id="input"></ion-input>
+      <ion-input placeholder="Enter company name" id="input_field"></ion-input>
       <ion-button v-on:click="getInputValue()">"Salva"</ion-button>
+      <ion-list>
+        <ion-item v-for="i in input" :key="i">
+          <ion-label>{{i}}</ion-label>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
-<script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonInput } from '@ionic/vue';
+<script lang="js">
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonInput, IonList, IonItem, IonLabel} from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -26,13 +31,21 @@ export default defineComponent({
     IonTitle,
     IonToolbar,
     IonButton,
-    IonInput
+    IonInput,
+    IonList,
+    IonItem,
+    IonLabel
+  },
+  data(){
+    return{
+      input: []
+    }
   },
   methods: {
-    getInputValue: () => {
-      const input = document.querySelector("#input")
-      console.log(input.value);
-      input.value = ""
+    getInputValue: function(){
+      const input_element = document.querySelector("#input_field")
+      this.input.push(input_element.value) 
+      input_element.value = ""
     }
   }
 });
