@@ -46,7 +46,7 @@ export default defineComponent({
   },
   data() {
     return {
-      input_list: ["prova"]
+      input_list: []
     }
   },
   methods: {
