@@ -8,15 +8,16 @@
 
     <ion-content :fullscreen="true">
       <ion-item id="input_container">
-        <ion-input placeholder="Enter company name" id="input_field"></ion-input>
-        <ion-button v-on:click="getInputValue()">"Salva"</ion-button>
+        <ion-input class="font_testo" placeholder="Scrivi cosa vuoi fare" id="input_field"></ion-input>
+        <ion-button class="font_testo" v-on:click="aggiungi()">Salva</ion-button>
       </ion-item>
       <ion-item id="list_container">
         <ion-list>
           <ion-item v-for="i in input_list" :key="i">
             <ion-label id="component">
-              <h1>{{ i }}</h1>
-              <ion-button v-on:click="elimina(i)">Elimina</ion-button>
+              <h3 class="font_testo">{{ i }}</h3>
+              <ion-button class="font_testo" v-on:click="elimina(i)">X</ion-button>
+              <ion-button class="font_testo" v-on:click="fatto(i)">V</ion-button>
             </ion-label>
           </ion-item>
         </ion-list>
@@ -45,11 +46,11 @@ export default defineComponent({
   },
   data() {
     return {
-      input_list: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
+      input_list: ["prova"]
     }
   },
   methods: {
-    getInputValue: function () {
+    aggiungi: function () {
       const input_element = document.querySelector("#input_field")
       input_element.value === '' ? alert("valore di input vuoto") : this.input_list.push(input_element.value)
       input_element.value = ""
@@ -70,6 +71,15 @@ export default defineComponent({
         }
         this.input_list = new_input_list
       }
+    },
+    fatto: function (el) {
+      const element = document.querySelectorAll("h3")
+      const index = this.input_list.indexOf(el)
+      if (element[index].style.textDecorationLine === "line-through"){
+        element[index].style.textDecorationLine = "none"
+      } else{
+        element[index].style.textDecorationLine = "line-through"
+      }
     }
   }
 });
@@ -77,7 +87,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-ion-content{
+@import url('https://fonts.googleapis.com/css2?family=Fasthand&family=Lora:ital@1&display=swap');
+
+ion-title {
+  font-family: 'Fasthand', cursive;
+  font-size: 35px;
+  text-align: center;
+}
+
+ion-content {
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -85,23 +103,38 @@ ion-content{
   grid-template-rows: 1fr 2fr;
 }
 
-#input_container ion-input{
+.font_testo {
+  font-family: 'Lora', serif;
+}
+
+#input_container ion-input {
   height: 60px;
+  font-size: 20px;
 }
 
-#input_container ion-button{
+#input_container ion-button {
   height: 40px;
-  width: 70px;
+  width: 80px;
+  font-size: 20px;
 }
 
-ion-list{
+ion-list {
   width: 100vw;
   padding: 0;
   margin: 0;
 }
 
-#component{
+#component {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 4fr 0.6fr 0.5fr;
+}
+
+#component h3 {
+  font-size: 20px;
+}
+
+#component ion-button {
+  width: 20px;
+  font-size: 15px;
 }
 </style>
