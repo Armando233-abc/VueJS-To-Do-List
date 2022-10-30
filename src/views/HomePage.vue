@@ -14,8 +14,8 @@
       <ion-item id="list_container">
         <ion-list>
           <ion-item v-for="i in input_list" :key="i">
-            <ion-label id="component">
-              <h3 class="font_testo">{{ i }}</h3>
+            <ion-label id="component" class="ion-text-nowrap">
+              <div class="font_testo">{{i}}</div>
               <ion-button class="font_testo" v-on:click="elimina(i)">X</ion-button>
               <ion-button class="font_testo" v-on:click="fatto(i)">V</ion-button>
             </ion-label>
@@ -42,7 +42,8 @@ export default defineComponent({
     IonInput,
     IonList,
     IonItem,
-    IonLabel
+    IonLabel,
+    
   },
   data() {
     return {
@@ -75,9 +76,9 @@ export default defineComponent({
     fatto: function (el) {
       const element = document.querySelectorAll("h3")
       const index = this.input_list.indexOf(el)
-      if (element[index].style.textDecorationLine === "line-through"){
+      if (element[index].style.textDecorationLine === "line-through") {
         element[index].style.textDecorationLine = "none"
-      } else{
+      } else {
         element[index].style.textDecorationLine = "line-through"
       }
     }
@@ -107,6 +108,11 @@ ion-content {
   font-family: 'Lora', serif;
 }
 
+ion-item {
+  --padding-start: 10px;
+  --padding-end: 0px;
+}
+
 #input_container ion-input {
   height: 60px;
   font-size: 20px;
@@ -118,19 +124,19 @@ ion-content {
   font-size: 20px;
 }
 
-ion-list {
-  width: 100vw;
-  padding: 0;
-  margin: 0;
-}
 
 #component {
   display: grid;
-  grid-template-columns: 4fr 0.6fr 0.5fr;
+  grid-template-columns: 8fr 1fr 1fr;
+  margin: 20px 0px 20px 0px;
 }
 
-#component h3 {
+#component div{
   font-size: 20px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 25px;
+  margin-right: 10px;
 }
 
 #component ion-button {
